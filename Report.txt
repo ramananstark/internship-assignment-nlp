@@ -1,0 +1,28 @@
+Extraction of PDF:
+In this project the process of extracting the PDF is done with the help of the PyPDF module in python to enable easy access I have given it as a function as extract_text_from_pdf
+where we can give the PDF path and extract the text from it and store it in a variable context.
+
+MCA questions:
+
+The context generated in the PDF is passed to this function where it will accept only the string data.
+The generated context is now set a series of preprocessing techniques as the data extracted is need to be cleaned.
+
+->keyword Extraction
+after the preprocessing the text is passed to a model called KeyBERT which is used to extract the keywords from the context provided
+this keyword is stored in a variable KeyBERT_ans
+
+->Question Generation:
+using this keywords the questions are generated using the T5 transformer model.
+as the time was limited I have to go for pretrained models so I have used T5 model for Conditional Generation trained on a squad Dataset by ramshrigoutham
+link=https://huggingface.co/ramsrigouthamg/t5_squad
+(thought of various methods like LSTM and BART classification but due to time constraint I'm using a pretrained model.)
+
+as per the number of keywords generated the get_question function generates the questions and stores it in the ques variable
+
+->Option Generation
+the options are generated using the wordnet->synsets and -> hyponym of the keyword and the keyword itself is given as a option
+these are appended together to give a total of 4 options
+
+->Now, the questions and options are zipped together and appended into a list so that the get_mca_questions function could return a list of questions and options
+
+even now it generates questions lot of fine tuning work has to be done
